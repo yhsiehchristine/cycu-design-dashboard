@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中原期初成果展｜美宣組籌備總覽</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF7;
+    --card: #FFFFFF;
+    --ink: #111111;
+    --ink-2: #4A4A4A;
+    --ink-3: #8A8A8A;
+    --line: #E5E5E0;
+    --line-2: #EFEFEA;
+
+    --blue: #2563EB;
+    --blue-soft: #EBF2FF;
+
+    --red: #DC2626;
+    --red-soft: #FEE2E2;
+    --amber: #D97706;
+    --amber-soft: #FEF3C7;
+    --green: #059669;
+    --green-soft: #D1FAE5;
+    --gray-soft: #F3F4F6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+
+  /* ===== TABS ===== */
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-2);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .tab:hover { border-color: var(--blue); color: var(--blue); }
+  .tab.active {
+    background: var(--ink);
+    color: white;
+    border-color: var(--ink);
+  }
+  .tab svg { width: 16px; height: 16px; }
+
+  /* ===== HEADER CARD ===== */
+  .header-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .header-meta {
+    display: flex;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--ink-2);
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .header-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .header-meta-item svg {
+    width: 14px;
+    height: 14px;
+    color: var(--ink-3);
+  }
+
+  .progress-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .progress-label {
+    font-size: 13px;
+    color: var(--ink-2);
+    font-weight: 500;
+    min-width: 64px;
+  }
+  .progress-track {
+    flex: 1;
+    height: 8px;
+    background: var(--line-2);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--blue);
+    border-radius: 100px;
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .progress-percent {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--blue);
+    min-width: 40px;
+    text-align: right;
+  }
+
+  /* ===== KPI ===== */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 720px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .kpi {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .kpi-label {
+    font-size: 13px;
+    color: var(--ink-3);
+    margin-bottom: 8px;
+  }
+  .kpi-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+  }
+  .kpi-value .small {
+    font-size: 16px;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .kpi-value.blue { color: var(--blue); }
+  .kpi-sub { font-size: 12px; color: var(--ink-3); }
+
+  /* ===== SECTION ===== */
+  .section { display: none; }
+  .section.active { display: block; animation: fade 0.2s ease; }
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== TODO ===== */
+  .todo-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .todo-card-head {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .todo-card-title { font-size: 15px; font-weight: 700; color: var(--ink); }
+  .todo-card-count {
+    font-size: 12px;
+    color: var(--ink-3);
+    background: var(--gray-soft);
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+
+  .todo-list { list-style: none; }
+  .todo-item {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--line-2);
+    cursor: pointer;
+    transition: background 0.12s;
+  }
+  .todo-item:last-child { border-bottom: none; }
+  .todo-item:hover { background: var(--bg); }
+
+  .priority {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    width: 44px;
+  }
+  .priority.high { background: var(--red-soft); color: var(--red); }
+  .priority.mid { background: var(--amber-soft); color: var(--amber); }
+  .priority.done { background: var(--green-soft); color: var(--green); }
+
+  .todo-text { font-size: 14px; color: var(--ink); font-weight: 500; }
+  .todo-item.is-done .todo-text { color: var(--ink-3); text-decoration: line-through; }
+  .todo-date {
+    font-size: 12px;
+    color: var(--ink-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+  .todo-date.urgent { color: var(--red); font-weight: 600; }
+
+  @media (max-width: 600px) {
+    .todo-item {
+      grid-template-columns: 44px 1fr;
+      grid-template-rows: auto auto;
+    }
+    .todo-date { grid-column: 2; grid-row: 2; }
+  }
+
+  /* ===== KANBAN ===== */
+  .kanban {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 900px) { .kanban { grid-template-columns: 1fr; } }
+
+  .kanban-col {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px;
+    min-height: 300px;
+  }
+  .kanban-col-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line-2);
+  }
+  .kanban-col-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dot.gray { background: var(--ink-3); }
+  .dot.blue { background: var(--blue); }
+  .dot.green { background: var(--green); }
+  .kanban-count {
+    font-size: 12px;
+    color: var(--ink-3);
+    background: var(--gray-soft);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  .task-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .task-card:hover {
+    border-color: var(--blue);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+  }
+  .task-card-id {
+    font-size: 11px;
+    color: var(--ink-3);
+    margin-bottom: 4px;
+  }
+  .task-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .task-card-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .task-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--blue-soft);
+    color: var(--blue);
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 4px;
+  }
+  .task-due { font-size: 11px; color: var(--ink-3); font-weight: 500; }
+  .task-due.urgent { color: var(--red); font-weight: 600; }
+  .task-mini-progress {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--ink-3);
+  }
+  .mini-track {
+    flex: 1;
+    height: 4px;
+    background: var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .mini-fill { height: 100%; background: var(--blue); }
+  .mini-fill.done { background: var(--green); }
+
+  /* ===== VENDORS ===== */
+  .sub-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 720px) { .sub-stats { grid-template-columns: repeat(2, 1fr); } }
+  .sub-stat {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .sub-stat-num { font-size: 24px; font-weight: 700; line-height: 1.1; }
+  .sub-stat-num.green { color: var(--green); }
+  .sub-stat-num.amber { color: var(--amber); }
+  .sub-stat-num.red { color: var(--red); }
+  .sub-stat-num.blue { color: var(--blue); }
+  .sub-stat-num.gray { color: var(--ink-3); }
+  .sub-stat-label { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+
+  .filter-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    padding: 6px 12px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    font-size: 13px;
+    color: var(--ink-2);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .chip:hover { border-color: var(--blue); color: var(--blue); }
+  .chip.active { background: var(--ink); color: white; border-color: var(--ink); }
+
+  .vendor-table {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .vd-row {
+    display: grid;
+    grid-template-columns: 80px 1.8fr 1.6fr 1.4fr 100px;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--line-2);
+    font-size: 13px;
+  }
+  .vd-row:last-child { border-bottom: none; }
+  .vd-row.head {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--ink-3);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+  .vd-row.data:hover { background: var(--bg); }
+
+  .vd-status {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .vd-status.confirmed { background: var(--green-soft); color: var(--green); }
+  .vd-status.quoting { background: var(--amber-soft); color: var(--amber); }
+  .vd-status.contacted { background: var(--blue-soft); color: var(--blue); }
+  .vd-status.rejected { background: var(--red-soft); color: var(--red); }
+  .vd-status.untouched { background: var(--gray-soft); color: var(--ink-3); }
+
+  .vd-name { font-weight: 600; color: var(--ink); }
+  .vd-meta { color: var(--ink-2); font-size: 12px; margin-top: 2px; }
+  .vd-spec { color: var(--ink-2); font-size: 12px; line-height: 1.5; }
+  .vd-notes { color: var(--ink-2); font-size: 12px; line-height: 1.5; }
+  .vd-price { font-weight: 700; color: var(--ink); text-align: right; }
+  .vd-price.muted { color: var(--ink-3); font-weight: 400; }
+  .vd-price.win { color: var(--green); }
+
+  @media (max-width: 800px) {
+    .vd-row { grid-template-columns: 1fr; gap: 6px; padding: 14px 16px; }
+    .vd-row.head { display: none; }
+    .vd-row.data { padding: 16px; }
+    .vd-price { text-align: left; }
+  }
+
+  /* ===== MEETING ===== */
+  .meeting-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--blue);
+  }
+  .meeting-card.done { border-left-color: var(--green); }
+  .meeting-card.upcoming { border-left-color: var(--amber); }
+
+  .meeting-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .meeting-date { font-size: 12px; color: var(--ink-3); margin-bottom: 4px; }
+  .meeting-title { font-size: 17px; font-weight: 700; color: var(--ink); }
+  .meeting-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .badge-done { background: var(--green-soft); color: var(--green); }
+  .badge-upcoming { background: var(--amber-soft); color: var(--amber); }
+
+  .meeting-attendees {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .att-chip {
+    font-size: 11px;
+    padding: 2px 8px;
+    background: var(--gray-soft);
+    color: var(--ink-2);
+    border-radius: 4px;
+  }
+  .meeting-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line-2);
+  }
+  @media (max-width: 720px) { .meeting-body { grid-template-columns: 1fr; } }
+  .meeting-body h4 {
+    font-size: 12px;
+    color: var(--ink-3);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .meeting-body ul { list-style: none; }
+  .meeting-body ul li {
+    font-size: 13px;
+    color: var(--ink-2);
+    padding: 3px 0 3px 14px;
+    position: relative;
+  }
+  .meeting-body ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 4px;
+    height: 4px;
+    background: var(--blue);
+    border-radius: 50%;
+  }
+
+  /* ===== GANTT ===== */
+  .gantt {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 24px;
+    overflow-x: auto;
+  }
+  .gantt-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line-2);
+  }
+  .gantt-row:last-child { border-bottom: none; }
+  .gantt-row.head {
+    font-size: 11px;
+    color: var(--ink-3);
+    font-weight: 600;
+    border-bottom: 2px solid var(--line);
+    padding-bottom: 8px;
+  }
+  .gantt-name { font-size: 13px; font-weight: 500; }
+  .gantt-track {
+    position: relative;
+    height: 22px;
+    background: var(--line-2);
+    border-radius: 4px;
+  }
+  .gantt-bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: var(--blue);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .gantt-bar.done { background: var(--green); }
+  .gantt-bar.upcoming { background: var(--amber); }
+  .gantt-months {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+    font-size: 11px;
+    color: var(--ink-3);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ===== TABS ===== -->
+  <nav class="tabs">
+    <button class="tab active" data-tab="dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      總覽
+    </button>
+    <button class="tab" data-tab="timeline">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      時程表
+    </button>
+    <button class="tab" data-tab="tasks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg>
+      設計任務
+    </button>
+    <button class="tab" data-tab="vendors">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      印刷廠商
+    </button>
+    <button class="tab" data-tab="meetings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      跨組會議
+    </button>
+  </nav>
+
+
+  <!-- ============ DASHBOARD ============ -->
+  <section class="section active" id="dashboard">
+
+    <div class="header-card">
+      <h1 class="header-title">中原大學期初成果展　美宣組工作紀錄</h1>
+      <div class="header-meta">
+        <span class="header-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          美宣組組長｜帶 5 位組員
+        </span>
+        <span class="header-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          2021/03/22 – 2021/06/22 · 109學年
+        </span>
+        <span class="header-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          結案中
+        </span>
+      </div>
+
+      <div class="progress-row">
+        <span class="progress-label">整體進度</span>
+        <div class="progress-track">
+          <div class="progress-fill" data-target="100"></div>
+        </div>
+        <span class="progress-percent">100%</span>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">設計品數量</div>
+        <div class="kpi-value">14 <span class="small">件</span></div>
+        <div class="kpi-sub">線上 + 線下產出</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">已下單印刷品</div>
+        <div class="kpi-value">7 <span class="small">項</span></div>
+        <div class="kpi-sub">合作 7 家廠商</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">展覽日期</div>
+        <div class="kpi-value">06<span class="small"> / 22</span></div>
+        <div class="kpi-sub">籌備期 92 天</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">最終預算</div>
+        <div class="kpi-value blue">$25,800</div>
+        <div class="kpi-sub">總預算 $25,000 </div>
+      </div>
+    </div>
+
+    <div class="todo-card">
+      <div class="todo-card-head">
+        <span class="todo-card-title">結案待辦事項</span>
+        <span class="todo-card-count">5 件 · 3 件未完</span>
+      </div>
+      <ul class="todo-list">
+        <li class="todo-item">
+          <span class="priority high">緊急</span>
+          <span class="todo-text">收支報表整理交財務組（含廠商發票影本）</span>
+          <span class="todo-date urgent">6/30 前</span>
+        </li>
+        <li class="todo-item">
+          <span class="priority mid">普通</span>
+          <span class="todo-text">設計檔案歸檔到雲端，下屆可調用</span>
+          <span class="todo-date">7/05 前</span>
+        </li>
+        <li class="todo-item">
+          <span class="priority mid">普通</span>
+          <span class="todo-text">剩餘 DM 約 80 張處理（活動結束未發完）</span>
+          <span class="todo-date">本週</span>
+        </li>
+        <li class="todo-item is-done">
+          <span class="priority done">完成</span>
+          <span class="todo-text">展場拆除 + 印刷品點交給總務</span>
+          <span class="todo-date">6/23</span>
+        </li>
+        <li class="todo-item is-done">
+          <span class="priority done">完成</span>
+          <span class="todo-text">主視覺檔案最終版上傳組內共用資料夾</span>
+          <span class="todo-date">6/22</span>
+        </li>
+      </ul>
+    </div>
+
+  </section>
+
+
+  <!-- ============ TIMELINE ============ -->
+  <section class="section" id="timeline">
+
+    <div class="header-card">
+      <h1 class="header-title">時程表</h1>
+      <div class="header-meta">
+        <span class="header-meta-item">2021/03/22 – 2021/06/22 · 整個美宣專案分五個階段</span>
+      </div>
+    </div>
+
+    <div class="gantt">
+      <div class="gantt-row head">
+        <span>階段</span>
+        <div class="gantt-months">
+          <span>3 月</span>
+          <span>4 月</span>
+          <span>5 月</span>
+          <span>6 月</span>
+        </div>
+      </div>
+
+      <div class="gantt-row">
+        <span class="gantt-name">階段 1 · 收需求 + 定主視覺</span>
+        <div class="gantt-track">
+          <div class="gantt-bar done" style="left:0%; width:32%;">100%</div>
+        </div>
+      </div>
+
+      <div class="gantt-row">
+        <span class="gantt-name">階段 2 · 印刷品設計</span>
+        <div class="gantt-track">
+          <div class="gantt-bar done" style="left:25%; width:30%;">100%</div>
+        </div>
+      </div>
+
+      <div class="gantt-row">
+        <span class="gantt-name">階段 3 · 印刷廠比價 + 送印</span>
+        <div class="gantt-track">
+          <div class="gantt-bar done" style="left:38%; width:35%;">100%</div>
+        </div>
+      </div>
+
+      <div class="gantt-row">
+        <span class="gantt-name">階段 4 · 大圖製作 + 展板</span>
+        <div class="gantt-track">
+          <div class="gantt-bar done" style="left:58%; width:30%;">100%</div>
+        </div>
+      </div>
+
+      <div class="gantt-row">
+        <span class="gantt-name">階段 5 · 展場佈置與動線</span>
+        <div class="gantt-track">
+          <div class="gantt-bar done" style="left:82%; width:18%;">100%</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ============ TASKS ============ -->
+  <section class="section" id="tasks">
+
+    <div class="header-card">
+      <h1 class="header-title">設計任務</h1>
+      <div class="header-meta">
+        <span class="header-meta-item">14 項設計品，分配給 5 位組員</span>
+      </div>
+    </div>
+
+    <div class="kanban">
+
+      <div class="kanban-col">
+        <div class="kanban-col-head">
+          <div class="kanban-col-title"><span class="dot gray"></span>還沒開始</div>
+          <span class="kanban-count">0</span>
+        </div>
+        <div style="text-align:center; color:var(--ink-3); font-size:12px; padding:40px 10px;">
+          —
+        </div>
+      </div>
+
+      <div class="kanban-col">
+        <div class="kanban-col-head">
+          <div class="kanban-col-title"><span class="dot blue"></span>進行中</div>
+          <span class="kanban-count">0</span>
+        </div>
+        <div style="text-align:center; color:var(--ink-3); font-size:12px; padding:40px 10px;">
+          —
+        </div>
+      </div>
+
+      <div class="kanban-col">
+        <div class="kanban-col-head">
+          <div class="kanban-col-title"><span class="dot green"></span>已完成</div>
+          <span class="kanban-count">14</span>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-id">任務 1</div>
+          <div class="task-card-title">需求收齊：跟活動組、總籌對焦</div>
+          <div class="task-card-row">
+            <span class="task-tag">我 + 康瑋庭</span>
+            <span class="task-due">✓ 3/26</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-id">任務 2</div>
+          <div class="task-card-title">主視覺草圖 + 配色 Moodboard</div>
+          <div class="task-card-row">
+            <span class="task-tag">蔡少薫</span>
+            <span class="task-due">✓ 4/05</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-id">任務 3</div>
+          <div class="task-card-title">Logo 設計（含黑白應用版）</div>
+          <div class="task-card-row">
+            <span class="task-tag">康瑋庭</span>
+            <span class="task-due">✓ 4/12</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-id">任務 4</div>
+          <div class="task-card-title">配色 + 字體系統定案</div>
+          <div class="task-card-row">
+            <span class="task-tag">康瑋庭</span>
+            <span class="task-due">✓ 4/15</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-id">任務 5</div>
+          <div class="task-card-title">主視覺定稿（已退 2 次）</div>
+          <div class="task-card-row">
+            <span class="task-tag">康瑋庭</span>
+            <span class="task-due">✓ 4/22</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-id">任務 6</div>
+          <div class="task-card-title">海報 A2 雙版設計</div>
+          <div class="task-card-row">
+            <span class="task-tag">erica</span>
+            <span class="task-due">✓ 4/28</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-id">任務 7</div>
+          <div class="task-card-title">DM 雙面版型 + 內容排版</div>
+          <div class="task-card-row">
+            <span class="task-tag">erica</span>
+            <span class="task-due">✓ 4/30</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-id">任務 8</div>
+          <div class="task-card-title">社群預熱貼文 × 9 張</div>
+          <div class="task-card-row">
+            <span class="task-tag">翁哲正</span>
+            <span class="task-due">✓ 5/08</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-id">任務 9</div>
+          <div class="task-card-title">入場識別證 + 名牌設計</div>
+          <div class="task-card-row">
+            <span class="task-tag">康瑋庭</span>
+            <span class="task-due">✓ 5/10</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-id">任務 10</div>
+          <div class="task-card-title">大圖背板送印（240×180cm）</div>
+          <div class="task-card-row">
+            <span class="task-tag">陳姿文</span>
+            <span class="task-due">✓ 5/18</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-id">任務 11</div>
+          <div class="task-card-title">展板版面排版（12 塊）</div>
+          <div class="task-card-row">
+            <span class="task-tag">erica</span>
+            <span class="task-due">✓ 5/25</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-id">任務 12</div>
+          <div class="task-card-title">展場引導指示牌 × 8 塊</div>
+          <div class="task-card-row">
+            <span class="task-tag">erica</span>
+            <span class="task-due">✓ 6/01</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-id">任務 13</div>
+          <div class="task-card-title">展場動線與擺設位置規劃</div>
+          <div class="task-card-row">
+            <span class="task-tag">陳姿文</span>
+            <span class="task-due">✓ 6/10</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-card-id">任務 14</div>
+          <div class="task-card-title">展場實體佈置 + 大圖懸掛</div>
+          <div class="task-card-row">
+            <span class="task-tag">全組</span>
+            <span class="task-due">✓ 6/20</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============ VENDORS ============ -->
+  <section class="section" id="vendors">
+
+    <div class="header-card">
+      <h1 class="header-title">印刷廠商紀錄</h1>
+      <div class="header-meta">
+        <span class="header-meta-item">所有送印項目的廠商比價與下單紀錄</span>
+      </div>
+    </div>
+
+    <div class="sub-stats">
+      <div class="sub-stat">
+        <div class="sub-stat-num green">7</div>
+        <div class="sub-stat-label">合作完成</div>
+      </div>
+      <div class="sub-stat">
+        <div class="sub-stat-num amber">3</div>
+        <div class="sub-stat-label">比價未合作</div>
+      </div>
+      <div class="sub-stat">
+        <div class="sub-stat-num blue">2</div>
+        <div class="sub-stat-label">僅諮詢</div>
+      </div>
+      <div class="sub-stat">
+        <div class="sub-stat-num gray">$23,700</div>
+        <div class="sub-stat-label">印刷總支出</div>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <button class="chip active" data-filter="all">全部 (12)</button>
+      <button class="chip" data-filter="confirmed">合作完成</button>
+      <button class="chip" data-filter="quoting">比價未合作</button>
+      <button class="chip" data-filter="contacted">僅諮詢</button>
+    </div>
+
+    <div class="vendor-table">
+      <div class="vd-row head">
+        <span>狀態</span>
+        <span>廠商</span>
+        <span>項目 / 規格</span>
+        <span>備註</span>
+        <span style="text-align:right;">金額</span>
+      </div>
+
+      <div class="vd-row data" data-status="confirmed">
+        <span class="vd-status confirmed">已合作</span>
+        <div>
+          <div class="vd-name">健豪印刷</div>
+          <div class="vd-meta">線上下單 · erica 負責</div>
+        </div>
+        <span>海報 A2 × 30 張<br><span style="color:var(--ink-3);">200P 銅版紙</span></span>
+        <span class="vd-notes">5/01 送印，5/05 取件</span>
+        <span class="vd-price win">$1,800</span>
+      </div>
+
+      <div class="vd-row data" data-status="confirmed">
+        <span class="vd-status confirmed">已合作</span>
+        <div>
+          <div class="vd-name">健豪印刷</div>
+          <div class="vd-meta">線上下單 · erica 負責</div>
+        </div>
+        <span>DM × 500 張<br><span style="color:var(--ink-3);">A5 雙面 150P</span></span>
+        <span class="vd-notes">5/03 送印，店家折價券版本</span>
+        <span class="vd-price win">$1,200</span>
+      </div>
+
+      <div class="vd-row data" data-status="confirmed">
+        <span class="vd-status confirmed">已合作</span>
+        <div>
+          <div class="vd-name">中原巨匠印刷</div>
+          <div class="vd-meta">親送 · 步行 5 分鐘</div>
+        </div>
+        <span>識別證 × 60 張<br><span style="color:var(--ink-3);">PVC 卡片 + 掛繩</span></span>
+        <span class="vd-notes">校稿打樣後送印，5/15 取件，掛繩有 1 條斷掉</span>
+        <span class="vd-price win">$2,400</span>
+      </div>
+
+      <div class="vd-row data" data-status="confirmed">
+        <span class="vd-status confirmed">已合作</span>
+        <div>
+          <div class="vd-name">富爾頓大圖輸出</div>
+          <div class="vd-meta">中壢 · 陳姿文自取</div>
+        </div>
+        <span>主視覺背板 240×180cm<br><span style="color:var(--ink-3);">珍珠板裱貼</span></span>
+        <span class="vd-notes">5/18 送印，5/24 完工自取</span>
+        <span class="vd-price win">$4,500</span>
+      </div>
+
+      <div class="vd-row data" data-status="confirmed">
+        <span class="vd-status confirmed">已合作</span>
+        <div>
+          <div class="vd-name">中壢老牌廣告社</div>
+          <div class="vd-meta">學長介紹 · erica 親洽</div>
+        </div>
+        <span>展板 × 12 塊<br><span style="color:var(--ink-3);">PP 板 60×90cm</span></span>
+        <span class="vd-notes">學生折扣，5/25 取件</span>
+        <span class="vd-price win">$6,200</span>
+      </div>
+
+      <div class="vd-row data" data-status="confirmed">
+        <span class="vd-status confirmed">已合作</span>
+        <div>
+          <div class="vd-name">學長推薦 噴畫達人</div>
+          <div class="vd-meta">LINE 下單</div>
+        </div>
+        <span>引導指示牌 × 8 塊<br><span style="color:var(--ink-3);">A3 雷射板</span></span>
+        <span class="vd-notes">6/01 完成</span>
+        <span class="vd-price win">$2,800</span>
+      </div>
+
+      <div class="vd-row data" data-status="confirmed">
+        <span class="vd-status confirmed">已合作</span>
+        <div>
+          <div class="vd-name">JK 廣告社</div>
+          <div class="vd-meta">中原校門口</div>
+        </div>
+        <span>大型立牌 × 2 座<br><span style="color:var(--ink-3);">含底座</span></span>
+        <span class="vd-notes">6/05 取件，現場發現少 1 個底座，臨時用磚塊壓</span>
+        <span class="vd-price win">$4,800</span>
+      </div>
+
+      <div class="vd-row data" data-status="quoting">
+        <span class="vd-status quoting">比價未合作</span>
+        <div>
+          <div class="vd-name">紅毛港噴畫</div>
+          <div class="vd-meta">LINE 報價</div>
+        </div>
+        <span>主視覺背板<br><span style="color:var(--ink-3);">同上規格</span></span>
+        <span class="vd-notes">含外送但比富爾頓貴 $1,300</span>
+        <span class="vd-price muted">$5,800（未採用）</span>
+      </div>
+
+      <div class="vd-row data" data-status="quoting">
+        <span class="vd-status quoting">比價未合作</span>
+        <div>
+          <div class="vd-name">印書小舖</div>
+          <div class="vd-meta">線上比價</div>
+        </div>
+        <span>展板 × 12 塊<br><span style="color:var(--ink-3);">同上規格</span></span>
+        <span class="vd-notes">線上比廣告社貴 $800</span>
+        <span class="vd-price muted">$7,000（未採用）</span>
+      </div>
+
+      <div class="vd-row data" data-status="quoting">
+        <span class="vd-status quoting">比價未合作</span>
+        <div>
+          <div class="vd-name">三和廣告</div>
+          <div class="vd-meta">電話報價</div>
+        </div>
+        <span>引導指示牌<br><span style="color:var(--ink-3);">同上規格</span></span>
+        <span class="vd-notes">報價比噴畫達人高，未採用</span>
+        <span class="vd-price muted">$3,600（未採用）</span>
+      </div>
+
+      <div class="vd-row data" data-status="contacted">
+        <span class="vd-status contacted">僅諮詢</span>
+        <div>
+          <div class="vd-name">桌卡印製廠</div>
+          <div class="vd-meta">—</div>
+        </div>
+        <span>桌卡 × 30 個<br><span style="color:var(--ink-3);">尺寸 A6</span></span>
+        <span class="vd-notes">最後改用組內手作，節省 $1,200</span>
+        <span class="vd-price muted">未下單</span>
+      </div>
+
+      <div class="vd-row data" data-status="contacted">
+        <span class="vd-status contacted">僅諮詢</span>
+        <div>
+          <div class="vd-name">布條輸出工廠</div>
+          <div class="vd-meta">—</div>
+        </div>
+        <span>校門口布條<br><span style="color:var(--ink-3);">600×90cm</span></span>
+        <span class="vd-notes">學校行政未核准懸掛，取消</span>
+        <span class="vd-price muted">未下單</span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============ MEETINGS ============ -->
+  <section class="section" id="meetings">
+
+    <div class="header-card">
+      <h1 class="header-title">跨組會議紀錄</h1>
+      <div class="header-meta">
+        <span class="header-meta-item">把活動組、總籌的「抽象想法」收斂成設計規格的會議</span>
+      </div>
+    </div>
+
+    <div class="meeting-card done">
+      <div class="meeting-head">
+        <div>
+          <div class="meeting-date">2021/03/26 · 週五</div>
+          <div class="meeting-title">第一次需求收齊：跟總籌 + 活動組對焦</div>
+        </div>
+        <span class="meeting-badge badge-done">已開完</span>
+      </div>
+      <div class="meeting-attendees">
+        <span class="att-chip">美宣組（我 + 組員）</span>
+        <span class="att-chip">總籌</span>
+        <span class="att-chip">活動組</span>
+      </div>
+      <div class="meeting-body">
+        <div>
+          <h4>收到的需求（口語化）</h4>
+          <ul>
+            <li>「希望年輕一點、有溫度，不要太正經」</li>
+            <li>「主色想要看起來有活力但不會太花」</li>
+            <li>「印 DM 想夾在中原商圈店家放」</li>
+          </ul>
+        </div>
+        <div>
+          <h4>我把它翻成設計規格</h4>
+          <ul>
+            <li>列出所有需要的設計品：主視覺、海報、DM、邀請卡等共 14 項</li>
+            <li>主色：橘紅 + 米白；副色：深藍</li>
+            <li>字體：思源黑體 + 一個手寫字</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="meeting-card done">
+      <div class="meeting-head">
+        <div>
+          <div class="meeting-date">2021/04/05 · 週一</div>
+          <div class="meeting-title">總籌 × 美宣組 主視覺方向會議</div>
+        </div>
+        <span class="meeting-badge badge-done">已開完</span>
+      </div>
+      <div class="meeting-attendees">
+        <span class="att-chip">美宣組</span>
+        <span class="att-chip">總籌</span>
+      </div>
+      <div class="meeting-body">
+        <div>
+          <h4>會議結果</h4>
+          <ul>
+            <li>總籌希望主視覺要呼應「連結」主題</li>
+            <li>用蔡少薫提出的 Moodboard 方向</li>
+            <li>確認 DM 印量為 500 張</li>
+          </ul>
+        </div>
+        <div>
+          <h4>對應任務</h4>
+          <ul>
+            <li>任務 2 主視覺草圖 + Moodboard</li>
+            <li>任務 5 主視覺定稿</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="meeting-card done">
+      <div class="meeting-head">
+        <div>
+          <div class="meeting-date">2021/04/08 · 週四</div>
+          <div class="meeting-title">組內分工會議：5 人任務分派</div>
+        </div>
+        <span class="meeting-badge badge-done">已開完</span>
+      </div>
+      <div class="meeting-attendees">
+        <span class="att-chip">美宣組 5 人</span>
+      </div>
+      <div class="meeting-body">
+        <div>
+          <h4>分工決議</h4>
+          <ul>
+            <li>康瑋庭：主視覺、Logo、插畫主導</li>
+            <li>erica：所有印刷品排版 + 送印窗口</li>
+            <li>翁哲正：社群、IG、限動素材</li>
+            <li>陳姿文：展板、3D 動線、立體製作</li>
+            <li>蔡少薫：協作支援 + 全部校稿</li>
+          </ul>
+        </div>
+        <div>
+          <h4>對應任務</h4>
+          <ul>
+            <li>把 14 項設計任務分配給 5 位組員</li>
+            <li>每週四晚開組內進度同步會</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="meeting-card done">
+      <div class="meeting-head">
+        <div>
+          <div class="meeting-date">2021/04/22 · 週四</div>
+          <div class="meeting-title">總籌 × 美宣組 主視覺定稿確認</div>
+        </div>
+        <span class="meeting-badge badge-done">已開完</span>
+      </div>
+      <div class="meeting-attendees">
+        <span class="att-chip">美宣組</span>
+        <span class="att-chip">總籌</span>
+        <span class="att-chip">活動組</span>
+      </div>
+      <div class="meeting-body">
+        <div>
+          <h4>會議結果</h4>
+          <ul>
+            <li>主視覺第三版確認（前兩版被退）</li>
+            <li>確認海報用 A 版、社群圖用 B 版</li>
+            <li>下週開始印刷品送印</li>
+          </ul>
+        </div>
+        <div>
+          <h4>對應任務</h4>
+          <ul>
+            <li>任務 5 主視覺定稿</li>
+            <li>任務 6 海報 A2 雙版設計</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="meeting-card done">
+      <div class="meeting-head">
+        <div>
+          <div class="meeting-date">2021/05/03 · 週一</div>
+          <div class="meeting-title">跟財務組對預算</div>
+        </div>
+        <span class="meeting-badge badge-done">已開完</span>
+      </div>
+      <div class="meeting-attendees">
+        <span class="att-chip">美宣組</span>
+        <span class="att-chip">財務組</span>
+      </div>
+      <div class="meeting-body">
+        <div>
+          <h4>會議結果</h4>
+          <ul>
+            <li>核准首批印刷費 $8,000</li>
+            <li>耗材追加 $3,500 通過</li>
+            <li>大圖背板要先看比價單才能核</li>
+          </ul>
+        </div>
+        <div>
+          <h4>對應任務</h4>
+          <ul>
+            <li>準備三家大圖廠商比價表</li>
+            <li>填預算追加表格送件</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="meeting-card done">
+      <div class="meeting-head">
+        <div>
+          <div class="meeting-date">2021/05/10 · 週一</div>
+          <div class="meeting-title">大圖印刷廠決定會議（組內）</div>
+        </div>
+        <span class="meeting-badge badge-done">已開完</span>
+      </div>
+      <div class="meeting-attendees">
+        <span class="att-chip">美宣組</span>
+      </div>
+      <div class="meeting-body">
+        <div>
+          <h4>會議結果</h4>
+          <ul>
+            <li>比較三家大圖廠商報價單</li>
+            <li>選便宜但要自取的富爾頓（陳姿文負責取件）</li>
+            <li>送印時間訂在 5/18，6/22 前可完工</li>
+          </ul>
+        </div>
+        <div>
+          <h4>對應任務</h4>
+          <ul>
+            <li>任務 10 大圖背板送印</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="meeting-card done">
+      <div class="meeting-head">
+        <div>
+          <div class="meeting-date">2021/06/10 · 週四</div>
+          <div class="meeting-title">場勘 + 動線規劃：跟總籌會勘</div>
+        </div>
+        <span class="meeting-badge badge-done">已開完</span>
+      </div>
+      <div class="meeting-attendees">
+        <span class="att-chip">美宣組</span>
+        <span class="att-chip">總籌</span>
+        <span class="att-chip">活動組</span>
+      </div>
+      <div class="meeting-body">
+        <div>
+          <h4>會議結果</h4>
+          <ul>
+            <li>確認展板擺放位置</li>
+            <li>引導指示牌位置確認</li>
+            <li>動線避開緊急出口</li>
+          </ul>
+        </div>
+        <div>
+          <h4>對應任務</h4>
+          <ul>
+            <li>任務 12 引導指示牌</li>
+            <li>任務 13 動線擺設規劃</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const sections = document.querySelectorAll('.section');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      tabs.forEach(t => t.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  const chips = document.querySelectorAll('.chip');
+  const rows = document.querySelectorAll('.vd-row.data');
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const filter = chip.dataset.filter;
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      rows.forEach(row => {
+        if (filter === 'all' || row.dataset.status === filter) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  window.addEventListener('load', () => {
+    const fill = document.querySelector('.progress-fill');
+    setTimeout(() => {
+      fill.style.width = fill.dataset.target + '%';
+    }, 150);
+  });
+</script>
+
+</body>
+</html>
